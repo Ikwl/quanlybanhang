@@ -1,0 +1,95 @@
+@baseUrl = http://localhost:8080/api
+
+### 1. Create customer
+POST {{baseUrl}}/customers
+Content-Type: application/json
+
+{
+  "username": "customer_test_01",
+  "password": "123456",
+  "address": "Ha Noi",
+  "phoneNumber": "0987654321",
+  "email": "customer_test_01@example.com"
+}
+
+### 2. Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "customer_test_01",
+  "password": "123456"
+}
+
+### 3. Create inventory
+POST {{baseUrl}}/inventories
+Content-Type: application/json
+
+{
+  "name": "Kho Test Ha Noi",
+  "address": "Cau Giay, Ha Noi",
+  "description": "Kho dung de test API"
+}
+
+### 4. List inventories
+GET {{baseUrl}}/inventories
+
+### 5. Create product
+# Replace inventoryId with the value returned by request 3.
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "inventoryId": 1,
+  "productName": "Ao thun test",
+  "info": "Ao cotton dung de test",
+  "price": 150000,
+  "pictureUrl": "https://example.com/aothun-test.jpg",
+  "category": "Fashion",
+  "quantity": 50,
+  "status": "ACTIVE"
+}
+
+### 6. List products
+GET {{baseUrl}}/products
+
+### 7. Add product to cart
+# Replace customerId in URL and productId in body with returned values.
+POST {{baseUrl}}/customers/1/cart/items
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 2
+}
+
+### 8. Get cart
+GET {{baseUrl}}/customers/1/cart
+
+### 9. Create order from cart
+POST {{baseUrl}}/orders/from-cart
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "address": "Ha Noi",
+  "shippingType": "STANDARD",
+  "shippingCost": 30000,
+  "paymentMethod": "COD"
+}
+
+### 10. Get order detail
+# Replace orderId with the value returned by request 9.
+GET {{baseUrl}}/orders/1
+
+### 11. Pay order
+POST {{baseUrl}}/payments/pay/1
+Content-Type: application/json
+
+{
+  "method": "BANKING"
+}
+
+### 12. Track order
+GET {{baseUrl}}/orders/1/tracking
+

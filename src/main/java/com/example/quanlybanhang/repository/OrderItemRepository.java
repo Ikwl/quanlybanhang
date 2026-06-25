@@ -1,0 +1,10 @@
+package com.example.quanlybanhang.repository;
+
+import com.example.quanlybanhang.model.OrderItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
+	List<OrderItem> findByOrder_OrderId(Long orderId);
+}
